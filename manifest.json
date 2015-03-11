@@ -1,0 +1,94 @@
+{
+	"manifest_version": 2,
+	"name" : "AdZap | Block ads across the web",
+	"version" : "3.0.2",
+	"description" : "Zap any ad you do not like. Block ads you have zapped. Unlock special features. Save the sites you love.",
+	"background": {
+		"page" : "html/background.html"
+	},
+	"options_page": "html/settings.html",
+  	"browser_action": {
+    	"default_icon": "icons/adzap-19.png", 
+    	"default_title": "Adzap", 
+    	"default_popup": "html/popup.html" 
+  	},	
+	"permissions": [
+	  	"tabs",
+		"notifications",
+	  	"unlimitedStorage",
+	  	"webRequest",
+	  	"webRequestBlocking",
+	   	"http://*/*",
+   		"https://*/*"
+	],
+	"content_scripts" : [
+	  {
+	    "exclude_matches" : [
+	      "*://docs.google.com/*",
+	      "*://mail.google.com/*",
+	      "*://www.google.com/a/cpanel/*",
+	      "*://www.getadzap.com/*"
+	    ],	
+	    "matches" : [
+	      "http://*/*",
+	      "https://*/*"
+	    ],
+	    "js" : ["lib/jquery-1.7.2.min.js", "lib/jquery-ui-1.8.21.custom.min.js", "lib/md5-min.js", "js/adidentifier.js"],
+		"css": ["css/adzap.css"],
+	    "run_at" : "document_idle",
+	    "all_frames" : true
+	  },
+	  {
+	    "exclude_matches" : [
+	      "*://docs.google.com/*",
+	      "*://mail.google.com/*",
+	      "*://www.google.com/a/cpanel/*",
+	      "*://www.getadzap.com/*"
+	    ],	
+	    "matches" : [
+	      "http://*/*",
+	      "https://*/*"
+	    ],
+	    "js" : ["lib/jquery-1.7.2.min.js", "lib/jquery-ui-1.8.21.custom.min.js", "js/ad.js"],
+		"css": ["css/adzap.css"],
+	    "run_at" : "document_idle",
+	    "all_frames" : false
+	  },	  
+	  {
+		"matches" : [
+	      "*://apps.facebook.com/*"
+	    ],
+		"css": ["css/adzap-fb-apps.css"],
+	    "run_at" : "document_idle",
+	    "all_frames" : false
+	  }
+	],
+	"icons" : {
+	  "16" : "icons/adzap-16.png",
+	  "48" : "icons/adzap-48.png",
+	  "128" : "icons/adzap-128.png"
+	},
+	"web_accessible_resources": [
+	    "images/raygunsprite-2.png",
+	    "images/fb-raygunsprite.png",
+	    "images/yt-raygunsprite.png",
+	    "images/notifier-sprite.png",
+	    "images/glyphicons-halflings-white.png",
+	    "images/glyphicons-halflings.png",
+	    "fonts/opensans.woff",
+	    "css/adzap.css",
+	    "css/adzap-fb-apps.css",
+	    "js/adidentifier.js",
+	    "js/notifier.js",
+	   	"js/ad.js",
+	    "lib/jquery-1.7.2.min.js", 
+	    "lib/jquery-ui-1.8.21.custom.min.js", 
+	    "lib/md5-min.js",
+		"lib/bootstrap-alert.js",
+		"lib/underscore-min.js",	    
+		"lib/parseuri.js"	    
+
+  	],
+	"content_security_policy":
+		"script-src 'self' https://ssl.google-analytics.com https://cdn.mxpnl.com https://platform.twitter.com https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'"
+}
